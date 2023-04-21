@@ -1,9 +1,13 @@
 package cloud.jarsey45.tankiez;
 
 import cloud.jarsey45.tankiez.blocks.ModBlocks;
+import cloud.jarsey45.tankiez.blocks.entity.ModBlockEntities;
 import cloud.jarsey45.tankiez.items.ModCreativeModeTabs;
 import cloud.jarsey45.tankiez.items.ModItems;
+import cloud.jarsey45.tankiez.screen.BasicTankScreen;
+import cloud.jarsey45.tankiez.screen.ModMenuTypes;
 import com.mojang.logging.LogUtils;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.CreativeModeTabEvent;
@@ -25,6 +29,8 @@ public class Tankiez {
         //registers
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
+        ModBlockEntities.register(modEventBus);
+        ModMenuTypes.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
 
@@ -39,8 +45,9 @@ public class Tankiez {
 
     private void addCreativeTab(CreativeModeTabEvent.BuildContents event) {
         if(event.getTab() == ModCreativeModeTabs.TANKIEZ_TAB) {
-            event.accept(ModItems.WRENCH);
+            event.accept(ModItems.DIAZULI_WRENCH);
             event.accept(ModBlocks.DIAZULI_GLASS);
+            event.accept(ModBlocks.BASIC_TANK);
         }
     }
 
@@ -48,7 +55,7 @@ public class Tankiez {
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
-
+            MenuScreens.register(ModMenuTypes.BASIC_TANK_MENU.get(), BasicTankScreen::new);
         }
     }
 }

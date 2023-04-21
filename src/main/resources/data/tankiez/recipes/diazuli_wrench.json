@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "D": {
+      "item": "minecraft:diamond"
+    },
+    "I": {
+      "tag": "minecraft:iron_ingot"
+    },
+    "L": {
+      "tag": "minecraft:lapis_lazuli"
+    }
+  },
+  "pattern": [
+    "D D",
+    " I ",
+    " L "
+  ],
+  "result": {
+    "item": "tankiez:diazuli_wrench"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "tankiez:block/basic_tank"
+    },
+    "facing=east": {
+      "model": "tankiez:block/basic_tank",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "tankiez:block/basic_tank",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "tankiez:block/basic_tank",
+      "y": 270
+    }
+  }
+}

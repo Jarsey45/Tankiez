@@ -30,12 +30,21 @@ public class ModBlocks {
                     //todo: .lightLevel()
             )
     );
+
+    public static final RegistryObject<Block> BASIC_TANK = registerBlock(
+            "basic_tank",
+            () -> new BasicTank(BlockBehaviour.Properties.of(Material.METAL)
+                    .strength(6f)
+                    .requiresCorrectToolForDrops()
+                    .noOcclusion()
+            )
+    );
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
-        registerBLockItem(name, toReturn);
+        registerBlockItem(name, toReturn);
         return toReturn;
     }
-    private static <T extends Block> RegistryObject<Item> registerBLockItem(String name, RegistryObject<T> block) {
+    private static <T extends Block> RegistryObject<Item> registerBlockItem(String name, RegistryObject<T> block) {
         return ModItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
     }
     public static void register(IEventBus eventBus) {

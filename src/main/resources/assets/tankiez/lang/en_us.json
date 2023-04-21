@@ -1,7 +1,8 @@
 {
-  "item.tankiez.wrench": "Wrench",
+  "item.tankiez.diazuli_wrench": "Wrench",
 
   "block.tankiez.diazuli_glass": "Diazuli Glass",
+  "block.tankiez.basic_tank": "Basic Tank",
 
   "creativemodetab.tutorial_tab": "Tankiez"
 }

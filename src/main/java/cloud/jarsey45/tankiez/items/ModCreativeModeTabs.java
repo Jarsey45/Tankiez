@@ -17,7 +17,7 @@ public class ModCreativeModeTabs {
     public static void registerCreativeModeTabs(CreativeModeTabEvent.Register event) {
         TANKIEZ_TAB = event.registerCreativeModeTab(
                 new ResourceLocation(Tankiez.MOD_ID, "tankiez_tab"),
-                builder -> builder.icon(() -> new ItemStack(ModItems.WRENCH.get()))
+                builder -> builder.icon(() -> new ItemStack(ModItems.DIAZULI_WRENCH.get()))
                         .title(Component.translatable("creativemodetab.tankiez_tab"))
         );
     }
