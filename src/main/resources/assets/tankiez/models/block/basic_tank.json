@@ -1,5 +1,6 @@
 {
 	"credit": "Made with Blockbench",
+	"render_type": "translucent",
 	"textures": {
 		"0": "tankiez:block/diazuli_glass",
 		"1": "tankiez:block/basic_tank_frame",

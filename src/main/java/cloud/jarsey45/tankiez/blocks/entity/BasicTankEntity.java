@@ -99,6 +99,7 @@ public class BasicTankEntity extends BlockEntity implements MenuProvider {
     @Override
     protected void saveAdditional(CompoundTag nbt) {
         nbt.put("inventory", itemHandler.serializeNBT());
+        nbt.putInt("basic_tank.progress", this.currentProgress);
 
         super.saveAdditional(nbt);
     }
@@ -108,6 +109,7 @@ public class BasicTankEntity extends BlockEntity implements MenuProvider {
         super.load(nbt);
 
         itemHandler.deserializeNBT(nbt.getCompound("inventory"));
+        currentProgress = nbt.getInt("basic_tank.progress");
     }
 
     public void drops() {
