@@ -12,9 +12,9 @@ import org.apache.commons.lang3.ClassPathUtils;
 public class BlockUtils {
 
     public static BlockPos getLookingAt(Player player) {
-        Level level = player.level;
+        Level level = player.level();
 
-        double range = player.getAttackRange();
+        double range = player.getEntityReach(); //TODO: fact check this method
 
         Vec3 angle = player.getLookAngle();
         Vec3 start = new Vec3(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());

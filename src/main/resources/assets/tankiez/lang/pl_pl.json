@@ -1,5 +1,7 @@
 {
   "item.tankiez.diazuli_wrench": "Klucz z Diazuli",
 
-  "block.tankiez.diazuli_glass": "Szkło Diazuli"
+  "block.tankiez.diazuli_glass": "Szkło Diazuli",
+
+  "creativemodetab.tutorial_tab": "Tankiez"
 }

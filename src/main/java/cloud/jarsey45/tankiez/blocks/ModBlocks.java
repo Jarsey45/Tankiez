@@ -5,10 +5,10 @@ import cloud.jarsey45.tankiez.items.ModItems;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.GlassBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.Material;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -22,7 +22,7 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> DIAZULI_GLASS = registerBlock(
             "diazuli_glass",
-            () -> new GlassBlock(BlockBehaviour.Properties.of(Material.GLASS)
+            () -> new GlassBlock(BlockBehaviour.Properties.copy(Blocks.DIAMOND_BLOCK)
                     .strength(6f)
                     .sound(SoundType.GLASS)
                     .friction(1f)
@@ -33,7 +33,7 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> BASIC_TANK = registerBlock(
             "basic_tank",
-            () -> new BasicTank(BlockBehaviour.Properties.of(Material.METAL)
+            () -> new BasicTank(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
                     .strength(6f)
                     .requiresCorrectToolForDrops()
                     .noOcclusion()

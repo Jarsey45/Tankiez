@@ -1,24 +1,24 @@
 package cloud.jarsey45.tankiez.items;
 
 import cloud.jarsey45.tankiez.Tankiez;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.event.CreativeModeTabEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.RegistryObject;
 
-@Mod.EventBusSubscriber(modid = Tankiez.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModCreativeModeTabs {
-    public static CreativeModeTab TANKIEZ_TAB;
+    public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
+            DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Tankiez.MOD_ID);
+    public static RegistryObject<CreativeModeTab> TANKIEZ_TAB = CREATIVE_MODE_TABS.register("tankiez_tab", () ->
+            CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.DIAZULI_WRENCH.get()))
+                    .title(Component.translatable("creativemodetab.tankiez_tab")).build()
+    );
 
-    @SubscribeEvent
-    public static void registerCreativeModeTabs(CreativeModeTabEvent.Register event) {
-        TANKIEZ_TAB = event.registerCreativeModeTab(
-                new ResourceLocation(Tankiez.MOD_ID, "tankiez_tab"),
-                builder -> builder.icon(() -> new ItemStack(ModItems.DIAZULI_WRENCH.get()))
-                        .title(Component.translatable("creativemodetab.tankiez_tab"))
-        );
+    public static void register(IEventBus eventBus) {
+        CREATIVE_MODE_TABS.register(eventBus);
     }
+
 }

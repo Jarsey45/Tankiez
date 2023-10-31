@@ -10,7 +10,7 @@ import com.mojang.logging.LogUtils;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.CreativeModeTabEvent;
+import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -27,6 +27,8 @@ public class Tankiez {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         //registers
+        ModCreativeModeTabs.register(modEventBus);
+
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
         ModBlockEntities.register(modEventBus);
@@ -43,8 +45,8 @@ public class Tankiez {
 
     }
 
-    private void addCreativeTab(CreativeModeTabEvent.BuildContents event) {
-        if(event.getTab() == ModCreativeModeTabs.TANKIEZ_TAB) {
+    private void addCreativeTab(BuildCreativeModeTabContentsEvent event) {
+        if(event.getTab() == ModCreativeModeTabs.TANKIEZ_TAB.get()) {
             event.accept(ModItems.DIAZULI_WRENCH);
             event.accept(ModBlocks.DIAZULI_GLASS);
             event.accept(ModBlocks.BASIC_TANK);

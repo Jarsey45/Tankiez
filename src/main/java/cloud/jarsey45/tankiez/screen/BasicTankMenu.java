@@ -17,19 +17,21 @@ public class BasicTankMenu extends AbstractContainerMenu {
     private final ContainerData data;
 
     public BasicTankMenu(int id, Inventory inv, FriendlyByteBuf extra) {
-        this(id, inv, inv.player.level.getBlockEntity(extra.readBlockPos()), new SimpleContainerData(2)); ///match entity data
+        this(id, inv, inv.player.level().getBlockEntity(extra.readBlockPos()), new SimpleContainerData(2)); ///match entity data
     }
 
     public BasicTankMenu(int id, Inventory inventory, BlockEntity entity, ContainerData data) {
         super(ModMenuTypes.BASIC_TANK_MENU.get(), id);
         checkContainerSize(inventory, 4);
         blockEntity = (BasicTankEntity) entity;
-        this.level = inventory.player.level;
+        this.level = inventory.player.level();
         this.data = data;
 
         addPlayerInventory(inventory);
         addPlayerInventory(inventory);
     }
+
+
     // CREDIT GOES TO: diesieben07 | https://github.com/diesieben07/SevenCommons
     // must assign a slot number to each of the slots used by the GUI.
     // For this container, we can see both the tile inventory's slots as well as the player inventory slots and the hotbar.
