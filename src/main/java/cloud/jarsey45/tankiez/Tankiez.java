@@ -4,6 +4,7 @@ import cloud.jarsey45.tankiez.blocks.ModBlocks;
 import cloud.jarsey45.tankiez.blocks.entity.ModBlockEntities;
 import cloud.jarsey45.tankiez.items.ModCreativeModeTabs;
 import cloud.jarsey45.tankiez.items.ModItems;
+import cloud.jarsey45.tankiez.networking.ModNetworking;
 import cloud.jarsey45.tankiez.screen.BasicTankScreen;
 import cloud.jarsey45.tankiez.screen.ModMenuTypes;
 import com.mojang.logging.LogUtils;
@@ -21,43 +22,45 @@ import org.slf4j.Logger;
 
 @Mod(Tankiez.MOD_ID)
 public class Tankiez {
-    public static final String MOD_ID = "tankiez";
-    private static final Logger LOGGER = LogUtils.getLogger();
-    public Tankiez() {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+	public static final String MOD_ID = "tankiez";
+	private static final Logger LOGGER = LogUtils.getLogger();
 
-        //registers
-        ModCreativeModeTabs.register(modEventBus);
+	public Tankiez() {
+		IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        ModItems.register(modEventBus);
-        ModBlocks.register(modEventBus);
-        ModBlockEntities.register(modEventBus);
-        ModMenuTypes.register(modEventBus);
+		//registers
+		ModCreativeModeTabs.register(modEventBus);
 
-        modEventBus.addListener(this::commonSetup);
+		ModItems.register(modEventBus);
+		ModBlocks.register(modEventBus);
+		ModBlockEntities.register(modEventBus);
+		ModMenuTypes.register(modEventBus);
 
-        MinecraftForge.EVENT_BUS.register(this);
+		modEventBus.addListener(this::commonSetup);
 
-        modEventBus.addListener(this::addCreativeTab);
-    }
+		MinecraftForge.EVENT_BUS.register(this);
 
-    private void commonSetup(final FMLCommonSetupEvent event) {
+		modEventBus.addListener(this::addCreativeTab);
+	}
 
-    }
+	private void commonSetup(final FMLCommonSetupEvent event) {
 
-    private void addCreativeTab(BuildCreativeModeTabContentsEvent event) {
-        if(event.getTab() == ModCreativeModeTabs.TANKIEZ_TAB.get()) {
-            event.accept(ModItems.DIAZULI_WRENCH);
-            event.accept(ModBlocks.DIAZULI_GLASS);
-            event.accept(ModBlocks.BASIC_TANK);
-        }
-    }
+		ModNetworking.register();
+	}
 
-    @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-    public static class ClientModEvents {
-        @SubscribeEvent
-        public static void onClientSetup(FMLClientSetupEvent event) {
-            MenuScreens.register(ModMenuTypes.BASIC_TANK_MENU.get(), BasicTankScreen::new);
-        }
-    }
+	private void addCreativeTab(BuildCreativeModeTabContentsEvent event) {
+		if (event.getTab() == ModCreativeModeTabs.TANKIEZ_TAB.get()) {
+			event.accept(ModItems.DIAZULI_WRENCH);
+			event.accept(ModBlocks.DIAZULI_GLASS);
+			event.accept(ModBlocks.BASIC_TANK);
+		}
+	}
+
+	@Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+	public static class ClientModEvents {
+		@SubscribeEvent
+		public static void onClientSetup(FMLClientSetupEvent event) {
+			MenuScreens.register(ModMenuTypes.BASIC_TANK_MENU.get(), BasicTankScreen::new);
+		}
+	}
 }

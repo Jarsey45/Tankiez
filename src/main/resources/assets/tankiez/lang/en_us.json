@@ -4,5 +4,8 @@
   "block.tankiez.diazuli_glass": "Diazuli Glass",
   "block.tankiez.basic_tank": "Basic Tank",
 
-  "creativemodetab.tutorial_tab": "Tankiez"
+  "creativemodetab.tankiez_tab": "Tankiez",
+
+  "tankiez.tooltip.liquid.amount.with.capacity": "%s / %s mB",
+  "tankiez.tooltip.liquid.amount": "%s mB"
 }

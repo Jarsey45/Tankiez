@@ -17,37 +17,40 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.function.Supplier;
 
 public class ModBlocks {
-    public static final DeferredRegister<Block> BLOCKS =
-            DeferredRegister.create(ForgeRegistries.BLOCKS, Tankiez.MOD_ID);
+	public static final DeferredRegister<Block> BLOCKS =
+					DeferredRegister.create(ForgeRegistries.BLOCKS, Tankiez.MOD_ID);
 
-    public static final RegistryObject<Block> DIAZULI_GLASS = registerBlock(
-            "diazuli_glass",
-            () -> new GlassBlock(BlockBehaviour.Properties.copy(Blocks.DIAMOND_BLOCK)
-                    .strength(6f)
-                    .sound(SoundType.GLASS)
-                    .friction(1f)
-                    .noOcclusion()
-                    //todo: .lightLevel()
-            )
-    );
+	public static final RegistryObject<Block> DIAZULI_GLASS = registerBlock(
+					"diazuli_glass",
+					() -> new GlassBlock(BlockBehaviour.Properties.copy(Blocks.DIAMOND_BLOCK)
+									.strength(6f)
+									.sound(SoundType.GLASS)
+									.friction(1f)
+									.noOcclusion()
+									//todo: .lightLevel()
+					)
+	);
 
-    public static final RegistryObject<Block> BASIC_TANK = registerBlock(
-            "basic_tank",
-            () -> new BasicTank(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
-                    .strength(6f)
-                    .requiresCorrectToolForDrops()
-                    .noOcclusion()
-            )
-    );
-    private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
-        RegistryObject<T> toReturn = BLOCKS.register(name, block);
-        registerBlockItem(name, toReturn);
-        return toReturn;
-    }
-    private static <T extends Block> RegistryObject<Item> registerBlockItem(String name, RegistryObject<T> block) {
-        return ModItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
-    }
-    public static void register(IEventBus eventBus) {
-        BLOCKS.register(eventBus);
-    }
+	public static final RegistryObject<Block> BASIC_TANK = registerBlock(
+					"basic_tank",
+					() -> new BasicTank(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+									.strength(6f)
+									.requiresCorrectToolForDrops()
+									.noOcclusion()
+					)
+	);
+
+	private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
+		RegistryObject<T> toReturn = BLOCKS.register(name, block);
+		registerBlockItem(name, toReturn);
+		return toReturn;
+	}
+
+	private static <T extends Block> RegistryObject<Item> registerBlockItem(String name, RegistryObject<T> block) {
+		return ModItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
+	}
+
+	public static void register(IEventBus eventBus) {
+		BLOCKS.register(eventBus);
+	}
 }

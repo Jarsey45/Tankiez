@@ -25,65 +25,68 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class BasicTank extends BaseEntityBlock {
-    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
-    public BasicTank(Properties props) {
-        super(props);
-    }
+	public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
-    @Override
-    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
-        return this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite());
-    }
+	public BasicTank(Properties props) {
+		super(props);
+	}
 
-    @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING);
-    }
+	@Override
+	public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+		return this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite());
+	}
 
-
-    @Override
-    public RenderShape getRenderShape(BlockState pos) {
-        return RenderShape.MODEL;
-    }
-
-    @Override
-    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
-
-        if(state.getBlock() != newState.getBlock()) {
-            BlockEntity blockEntity = level.getBlockEntity(pos);
-            if(blockEntity instanceof BasicTankEntity) {
-                ((BasicTankEntity) blockEntity).drops();
-            }
-        }
-
-        super.onRemove(state, level, pos, newState, isMoving);
-    }
+	@Override
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+		builder.add(FACING);
+	}
 
 
-    @Override
-    public @NotNull InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        if(!level.isClientSide()) {
-            BlockEntity entity = level.getBlockEntity(pos);
-            if(entity instanceof BasicTankEntity) {
-                NetworkHooks.openScreen((ServerPlayer) player, (BasicTankEntity) entity, pos);
-            } else {
-                throw new IllegalStateException("Container provider is missing!");
-            }
-        }
+	@Override
+	public RenderShape getRenderShape(BlockState pos) {
+		return RenderShape.MODEL;
+	}
 
-        return InteractionResult.sidedSuccess(level.isClientSide());
-    }
+	@Override
+	public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
 
-    @Nullable
-    @Override
-    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new BasicTankEntity(pos, state);
-    }
+		if (state.getBlock() != newState.getBlock()) {
+			BlockEntity blockEntity = level.getBlockEntity(pos);
+			if (blockEntity instanceof BasicTankEntity) {
+				((BasicTankEntity) blockEntity).drops();
+			}
+		}
 
-    @Nullable
-    @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, ModBlockEntities.BASIC_TANK.get(),
-                BasicTankEntity::tick);
-    }
+		super.onRemove(state, level, pos, newState, isMoving);
+	}
+
+
+	@Override
+	public @NotNull InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+		if (!level.isClientSide()) {
+			BlockEntity entity = level.getBlockEntity(pos);
+			if (entity instanceof BasicTankEntity) {
+				NetworkHooks.openScreen((ServerPlayer) player, (BasicTankEntity) entity, pos);
+			} else {
+				throw new IllegalStateException("Container provider is missing!");
+			}
+		}
+
+		return InteractionResult.sidedSuccess(level.isClientSide());
+	}
+
+	@Nullable
+	@Override
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+		return new BasicTankEntity(pos, state);
+	}
+
+	@Nullable
+	@Override
+	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+		if (level.isClientSide()) return null;
+
+		return createTickerHelper(type, ModBlockEntities.BASIC_TANK.get(),
+						BasicTankEntity::tick);
+	}
 }
